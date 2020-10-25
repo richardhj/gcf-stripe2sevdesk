@@ -1,0 +1,9 @@
+steps:
+  - name: node
+    entrypoint: yarn
+    args: [ 'install' ]
+  - name: node
+    entrypoint: yarn
+    args: [ 'run', 'compile' ]
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [ 'functions', 'deploy', 'stripe2sevdesk', '--region=europe-west3', '--source=build/', '--entry-point=webhook', '--trigger-http', '--allow-unauthenticated', '--runtime=nodejs12', '--memory=128MB', '--timeout=30s' ]
